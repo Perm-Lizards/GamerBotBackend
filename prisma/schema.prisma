@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admins {
+  id Int @id @default(autoincrement())
+
+  profileId Int      @unique
+  profile   Profiles @relation(fields: [profileId], references: [id])
+}
+
+model Profiles {
+  id       Int     @id @default(autoincrement())
+  bio      String? @db.VarChar()
+  git_link String? @db.VarChar()
+
+  admin      Admins?
+  projects   ProfilesOnProjects[]
+  prog_langs ProfilesOnProg_Langs[]
+}
+
+model Projects {
+  id               Int      @id @default(autoincrement())
+  name             String?  @db.VarChar()
+  number_of_devs   Int      @db.Integer
+  date_of_creation DateTime @default(now()) @db.Timestamp()
+  description      String?  @db.VarChar()
+  git_link         String?  @db.VarChar()
+
+  profiles   ProfilesOnProjects[]
+  prog_langs ProjectsOnProg_Langs[]
+}
+
+model Prog_Langs {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar()
+  logo String? @db.VarChar()
+
+  profiles ProfilesOnProg_Langs[]
+  projects ProjectsOnProg_Langs[]
+}
+
+// Relations 
+model ProfilesOnProjects {
+  profileId Int
+  profile   Profiles @relation(fields: [profileId], references: [id])
+
+  projectId Int
+  project   Projects @relation(fields: [projectId], references: [id])
+
+  @@id([profileId, projectId])
+}
+
+model ProfilesOnProg_Langs {
+  profileId Int
+  profile   Profiles @relation(fields: [profileId], references: [id])
+
+  prog_langId Int
+  prog_lang   Prog_Langs @relation(fields: [prog_langId], references: [id])
+
+  @@id([profileId, prog_langId])
+}
+
+model ProjectsOnProg_Langs {
+  projectId Int
+  project   Projects @relation(fields: [projectId], references: [id])
+
+  prog_langId Int
+  prog_lang   Prog_Langs @relation(fields: [prog_langId], references: [id])
+
+  @@id([projectId, prog_langId])
+}
