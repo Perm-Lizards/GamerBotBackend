@@ -7,71 +7,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admins {
-  id Int @id @default(autoincrement())
-
-  profileId Int      @unique
-  profile   Profiles @relation(fields: [profileId], references: [id])
-}
-
 model Profiles {
-  id       Int     @id @default(autoincrement())
-  bio      String? @db.VarChar()
-  git_link String? @db.VarChar()
+  id      Int     @id @default(autoincrement())
+  name    String  @db.VarChar()
+  logo    Bytes   @db.ByteA
+  bio     String? @db.VarChar()
+  gitLink String? @db.VarChar()
+  tgLink  String? @db.VarChar()
 
-  admin      Admins?
-  projects   ProfilesOnProjects[]
-  prog_langs ProfilesOnProg_Langs[]
+  projects  ProfilesOnProjects[]
+  progLangs ProgLangs[]
 }
 
 model Projects {
-  id               Int      @id @default(autoincrement())
-  name             String?  @db.VarChar()
-  number_of_devs   Int      @db.Integer
-  date_of_creation DateTime @default(now()) @db.Timestamp()
-  description      String?  @db.VarChar()
-  git_link         String?  @db.VarChar()
+  id            Int      @id @default(autoincrement())
+  title         String   @db.VarChar()
+  description   String?  @db.VarChar()
+  membersNumber Int
+  createdAt     DateTime @default(now()) @db.Timestamp()
+  gitLink       String   @db.VarChar()
+  tgLink        String   @db.VarChar()
 
-  profiles   ProfilesOnProjects[]
-  prog_langs ProjectsOnProg_Langs[]
+  profiles  ProfilesOnProjects[]
+  progLangs ProgLangs[]
 }
 
-model Prog_Langs {
-  id   Int     @id @default(autoincrement())
-  name String? @db.VarChar()
-  logo String? @db.VarChar()
+model ProgLangs {
+  name String @id @db.VarChar()
 
-  profiles ProfilesOnProg_Langs[]
-  projects ProjectsOnProg_Langs[]
+  profiles Profiles[]
+  projects Projects[]
+}
+
+model Roles {
+  id    Int    @id
+  title String @db.VarChar()
+
+  profilesOnProjects ProfilesOnProjects[]
 }
 
 // Relations 
 model ProfilesOnProjects {
-  profileId Int
-  profile   Profiles @relation(fields: [profileId], references: [id])
+  profilesId Int
+  profile    Profiles @relation(fields: [profilesId], references: [id])
 
-  projectId Int
-  project   Projects @relation(fields: [projectId], references: [id])
+  projectsId Int
+  project    Projects @relation(fields: [projectsId], references: [id])
 
-  @@id([profileId, projectId])
-}
+  roleId Int
+  role   Roles @relation(fields: [roleId], references: [id])
 
-model ProfilesOnProg_Langs {
-  profileId Int
-  profile   Profiles @relation(fields: [profileId], references: [id])
-
-  prog_langId Int
-  prog_lang   Prog_Langs @relation(fields: [prog_langId], references: [id])
-
-  @@id([profileId, prog_langId])
-}
-
-model ProjectsOnProg_Langs {
-  projectId Int
-  project   Projects @relation(fields: [projectId], references: [id])
-
-  prog_langId Int
-  prog_lang   Prog_Langs @relation(fields: [prog_langId], references: [id])
-
-  @@id([projectId, prog_langId])
+  @@id([profilesId, projectsId])
 }

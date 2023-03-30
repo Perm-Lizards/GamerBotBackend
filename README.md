@@ -15,7 +15,7 @@
 - Указать token и данные для подключения к PostgreSQL
 - npm i
 - npx prisma generate
-- npx prisma migrate dev --name init
+- npx prisma migrate dev
 
 ### Stack
 
