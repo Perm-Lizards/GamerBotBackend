@@ -54,8 +54,8 @@ model ProfilesOnProjects {
   projectsId Int
   project    Projects @relation(fields: [projectsId], references: [id])
 
-  roleId Int
-  role   Roles @relation(fields: [roleId], references: [id])
+  rolesId Int
+  role    Roles @relation(fields: [rolesId], references: [id])
 
   @@id([profilesId, projectsId])
 }
