@@ -1,0 +1,278 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GamerBot API",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "profiles"
+    },
+    {
+      "name": "projects"
+    },
+    {
+      "name": "progLangs"
+    }
+  ],
+  "paths": {
+    "/profiles": {
+      "post": {
+        "tags": ["profiles"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/profiles/{profile_id}": {
+      "get": {
+        "tags": ["profiles"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["profiles"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["profiles"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/profiles/{profile_id}/projects": {
+      "get": {
+        "tags": ["profiles"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/projects": {
+      "post": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/projects/{project_id}": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      },
+      "put": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successful creating",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/join": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/leave": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/profiles": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/profiles/{profile_id}/exclude": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/profiles/{profile_id}/set_role?role=member": {
+      "get": {
+        "tags": ["projects"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    },
+    "/progLangs": {
+      "get": {
+        "tags": ["progLangs"],
+        "responses": {
+          "200": {
+            "description": "Successfil receiving"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Naruto"
+          },
+          "logo": {
+            "type": "string",
+            "example": "base64 format picture"
+          },
+          "bio": {
+            "type": "string",
+            "example": "Я будущий Хокаге!"
+          },
+          "ghLink": {
+            "type": "string",
+            "example": "github"
+          },
+          "tgLink": {
+            "type": "string",
+            "example": "telegram"
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          },
+          "progLangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProgLang"
+            }
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Овладеть Расенганом"
+          },
+          "description": {
+            "type": "string",
+            "example": "Обучение Расенгану состоит из 3-х этапов: Вращение, Сила, Сдерживание"
+          },
+          "membersNumber": {
+            "type": "integer",
+            "example": 1
+          },
+          "createdAt": {
+            "type": "integer",
+            "example": "1"
+          },
+          "ghLink": {
+            "type": "string",
+            "example": "github"
+          },
+          "tgLink": {
+            "type": "string",
+            "example": "tgLink"
+          },
+          "profiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Profile"
+            }
+          },
+          "progLangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProgLang"
+            }
+          }
+        }
+      },
+      "ProgLang": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "TypeScript"
+          }
+        }
+      }
+    }
+  }
+}

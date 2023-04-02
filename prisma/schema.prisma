@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Profiles {
-  id      Int     @id @default(autoincrement())
-  name    String  @db.VarChar()
-  logo    Bytes   @db.ByteA
-  bio     String? @db.VarChar()
-  gitLink String? @db.VarChar()
-  tgLink  String? @db.VarChar()
+  id     Int     @id @default(autoincrement())
+  name   String  @db.VarChar()
+  logo   Bytes   @db.ByteA
+  bio    String? @db.VarChar()
+  ghLink String? @db.VarChar()
+  tgLink String? @db.VarChar()
 
   projects  ProfilesOnProjects[]
   progLangs ProgLangs[]
@@ -25,7 +25,7 @@ model Projects {
   description   String?  @db.VarChar()
   membersNumber Int
   createdAt     DateTime @default(now()) @db.Timestamp()
-  gitLink       String   @db.VarChar()
+  ghLink        String   @db.VarChar()
   tgLink        String   @db.VarChar()
 
   profiles  ProfilesOnProjects[]
